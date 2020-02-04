@@ -1,29 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Quote from '../components/quotes/Quote';
-import getQuotes from '../services/getQuotes';
+import useQuotes from '../hooks/quotes';
 
 const FinalFn = () => {
-  const [character, setCharacter] = useState('');
-  const [quote, setQuote] = useState('');
-  const [pic, setPic] = useState('');
-
-  useEffect(() => {
-    fetch();
-  }, []);
-
-  const fetch = () => {
-    getQuotes()
-      .then(quotes => {
-        const randomIndex = Math.floor(Math.random() * quotes.length);
-        setCharacter(quotes[randomIndex].character);
-        setQuote(quotes[randomIndex].quote);
-        setPic(quotes[randomIndex].image);
-      });
-  };
-
-  const handleClick = () => {
-    fetch();
-  };
+  const { character, quote, pic, handleClick } = useQuotes();
 
   return (
     <div>
