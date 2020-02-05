@@ -14,7 +14,7 @@ const DropDown = ({ onChange }) => {
     <div className={styles.Drop}>
       <label htmlFor="dropDown">Select a character:</label>
       <select id="dropDown" onChange={onChange}>
-        <option value="">Choose an option</option>
+        <option value="">All Quotes</option>
         {characterElements}
       </select>
     </div>

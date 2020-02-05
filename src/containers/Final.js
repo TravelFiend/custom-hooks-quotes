@@ -51,7 +51,7 @@ class Quotes extends Component {
   render(){
     return (
       <>
-        <DropDown onChange={this.handleChange} />
+        <DropDown onChange={this.handleChange}/>
         <Quote character={this.state.character} quote={this.state.quote} pic={this.state.pic} handleClick={this.handleClick} />
       </>
     );

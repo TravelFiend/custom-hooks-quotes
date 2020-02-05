@@ -1,16 +1,14 @@
 import React from 'react';
 import Quote from '../components/quotes/Quote';
 import useQuotes from '../hooks/quotes';
-// import useCharacters from '../hooks/characters';
-import DropDown from '../components/characters/DropDown';
+import DropDown from '../components/dropDown/DropDown';
 
 const FinalFn = () => {
-  const { character, quote, pic, handleClick } = useQuotes();
-  const { characters, setSelectedChar } = useCharacters();
+  const { character, quote, pic, handleClick, handleChange } = useQuotes();
 
   return (
     <div>
-      <DropDown characters={characters} handleChange={setSelectedChar} />
+      <DropDown onChange={handleChange}/>
       <Quote character={character} quote={quote} pic={pic} handleClick={handleClick} />
     </div>
   );
