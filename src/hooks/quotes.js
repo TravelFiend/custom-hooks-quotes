@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import getQuotes from '../services/getQuotes';
+import getApiData from '../services/getApiData';
 
 const useQuotes = () => {
   const [character, setCharacter] = useState('');
@@ -11,7 +11,7 @@ const useQuotes = () => {
   }, []);
 
   const fetch = () => {
-    getQuotes()
+    getApiData('https://futuramaapi.herokuapp.com/api/quotes/163')
       .then(quotes => {
         const randomIndex = Math.floor(Math.random() * quotes.length);
         setCharacter(quotes[randomIndex].character);

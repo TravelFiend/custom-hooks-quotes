@@ -1,28 +1,40 @@
 import React, { Component } from 'react';
 import Quote from '../components/quotes/Quote';
-import getQuotes from '../services/getQuotes';
+import DropDown from '../components/dropDown/DropDown';
+import getQuotes from '../services/getApiData';
 
 class Quotes extends Component {
   state = {
     character: '',
     quote: '',
-    pic: ''
+    pic: '',
+    selectedChar: ''
+  }
+
+  setIt = (quotes) => {
+    const randomIndex = Math.floor(Math.random() * quotes.length);
+
+    this.setState({
+      character: quotes[randomIndex].character,
+      quote: quotes[randomIndex].quote,
+      pic: quotes[randomIndex].image
+    });
   }
 
   componentDidMount(){
     this.fetch();
   }
 
-  fetch(){
-    return getQuotes()
-      .then(quotes => {
-        const randomIndex = Math.floor(Math.random() * quotes.length);
-
-        this.setState({
-          character: quotes[randomIndex].character,
-          quote: quotes[randomIndex].quote,
-          pic: quotes[randomIndex].image
+  fetch = () => {
+    if(this.state.selectedChar === ''){
+      return getQuotes('https://futuramaapi.herokuapp.com/api/quotes/163')
+        .then(quotes => {
+          this.setIt(quotes);
         });
+    }
+    return getQuotes(`https://futuramaapi.herokuapp.com/api/characters/${this.state.selectedChar}`)
+      .then(quotes => {
+        this.setIt(quotes);
       });
   }
 
@@ -31,11 +43,17 @@ class Quotes extends Component {
     this.fetch();
   }
 
+  handleChange = ({ target }) => {
+    event.preventDefault();
+    this.setState({ selectedChar: target.value });
+  }
+
   render(){
     return (
-      <main>
-        <Quote character={this.state.character} quote={this.state.quote} pic={this.state.pic} onClick={this.handleClick} />
-      </main>
+      <>
+        <DropDown onChange={this.handleChange} />
+        <Quote character={this.state.character} quote={this.state.quote} pic={this.state.pic} handleClick={this.handleClick} />
+      </>
     );
   }
 }

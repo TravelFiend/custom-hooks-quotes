@@ -1,10 +1,10 @@
 import React from 'react';
-import FinalFn from '../containers/FinalFn';
+import Final from '../containers/Final';
 
 export default function App() {
   return (
     <>
-      <FinalFn />
+      <Final />
     </>
   );
 }
