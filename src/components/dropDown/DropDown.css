@@ -1,5 +1,6 @@
 .Drop {
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  text-align: center;
+  display: flex;
+  justify-content: space-evenly;
   margin-top: 50px;
 }

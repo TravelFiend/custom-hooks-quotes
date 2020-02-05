@@ -8,7 +8,9 @@ class Quotes extends Component {
     character: '',
     quote: '',
     pic: '',
-    selectedChar: ''
+    selectedChar: '',
+    totalQuotes: 1,
+    totalCharQuotes: 1
   }
 
   setIt = (quotes) => {
@@ -17,12 +19,19 @@ class Quotes extends Component {
     this.setState({
       character: quotes[randomIndex].character,
       quote: quotes[randomIndex].quote,
-      pic: quotes[randomIndex].image
+      pic: quotes[randomIndex].image,
+      totalCharQuotes: quotes.length
     });
   }
 
   componentDidMount(){
     this.fetch();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if(prevState.selectedChar !== this.state.selectedChar && this.state.selectedChar !== '') {
+      this.fetch();
+    }
   }
 
   fetch = () => {
@@ -44,14 +53,18 @@ class Quotes extends Component {
   }
 
   handleChange = ({ target }) => {
-    event.preventDefault();
     this.setState({ selectedChar: target.value });
+  }
+
+  handleNumChange = ({ target }) => {
+    event.preventDefault();
+    this.setState({ totalQuotes: Number(target.value) });
   }
 
   render(){
     return (
       <>
-        <DropDown onChange={this.handleChange}/>
+        <DropDown onChange={this.handleChange} onNumChange={this.handleNumChange} />
         <Quote character={this.state.character} quote={this.state.quote} pic={this.state.pic} handleClick={this.handleClick} />
       </>
     );
